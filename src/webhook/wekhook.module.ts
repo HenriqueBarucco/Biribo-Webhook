@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { WebhookController } from './webhook.controller';
 import { WebhookService } from './webhook.service';
-import { EasyWhatsAppModule } from 'src/easy-whatsapp/easy-whatsapp.module';
+import { GitHubModule } from 'src/github/github.module';
 
 @Module({
-    imports: [EasyWhatsAppModule],
+    imports: [GitHubModule],
     controllers: [WebhookController],
     providers: [WebhookService],
 })
