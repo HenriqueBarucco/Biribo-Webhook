@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  biribo-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: 'biribo'
+      MYSQL_USER: 'usr_biribo'
+      MYSQL_PASSWORD: 'biribo'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - '3306:3306'
+    volumes:
+      - biribo-db:/var/lib/mysql
+
+volumes:
+  biribo-db:
