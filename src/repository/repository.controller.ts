@@ -1,12 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    Post,
+    UseGuards,
+} from '@nestjs/common';
 import { RepositoryService } from './repository.service';
 import { RepositoryEntity } from './repository.entity';
+import { JwtAuthGuard } from 'src/jwt/jwt-auth.guard';
 
 interface CreateRepository {
     name: string;
     phone: string;
 }
 
+@UseGuards(JwtAuthGuard)
 @Controller('/v1/repository')
 export class RepositoryController {
     constructor(private readonly repositoryService: RepositoryService) {}
