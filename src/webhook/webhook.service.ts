@@ -1,19 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { Webhook } from './dto/webhook.dto';
 import { GitHubService } from 'src/github/github.service';
 
 @Injectable()
 export class WebhookService {
     constructor(private readonly githubService: GitHubService) {}
-    async process(webhook: Webhook) {
-        switch (webhook.event) {
-            case 'pull_request':
-                if (webhook.payload.action == 'opened') {
-                    this.githubService.pullRequestOpened(webhook.payload);
-                }
-                if (webhook.payload.action == 'closed') {
-                    this.githubService.pullRequestClosed(webhook.payload);
-                }
+    async process(webhook: any) {
+        switch (webhook.action) {
+            case 'opened':
+                this.githubService.pullRequestOpened(webhook);
+                break;
+            case 'closed':
+                this.githubService.pullRequestClosed(webhook);
                 break;
             case 'pull_request_review_comment':
                 if (webhook.payload.action == 'created') {
