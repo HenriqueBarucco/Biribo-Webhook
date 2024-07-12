@@ -1,4 +1,4 @@
-FROM node:21.5.0 AS builder
+FROM node:22.3.0-alpine AS builder
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm run build
 
-FROM node:21.5.0
+FROM node:22.3.0-alpine
 
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
