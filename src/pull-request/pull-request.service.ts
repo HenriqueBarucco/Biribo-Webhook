@@ -30,7 +30,7 @@ export class PullRequestService {
     async reviewed(project: string, prNumber: number, user: string) {
         await this.easyWhatsAppService.sendMessage(
             await this.getSender(project),
-            `✏️ PR #${prNumber} - Pedido de alteração:\nProjeto: ${project}\nPor: ${user}`,
+            `💬 PR #${prNumber} - Novo comentário:\nProjeto: ${project}\nPor: ${user}`,
         );
     }
 
