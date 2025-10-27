@@ -4,6 +4,7 @@ import { WebhookModule } from './webhook/wekhook.module';
 import { RepositoryModule } from './repository/repository.module';
 import { PullRequestModule } from './pull-request/pull-request.module';
 import { GitHubModule } from './github/github.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
     imports: [
@@ -12,6 +13,7 @@ import { GitHubModule } from './github/github.module';
         RepositoryModule,
         PullRequestModule,
         GitHubModule,
+        HealthModule,
     ],
     controllers: [],
     providers: [],
