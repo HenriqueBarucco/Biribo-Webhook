@@ -4,8 +4,6 @@ WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
 
-# install pnpm via npm to avoid Corepack signature/verification issues in some environments
-# use --shamefully-hoist so node_modules layout is compatible when copied to the runtime stage
 RUN npm install -g pnpm@latest \
 	&& pnpm install --frozen-lockfile --shamefully-hoist
 
