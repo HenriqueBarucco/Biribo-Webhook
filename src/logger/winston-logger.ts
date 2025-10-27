@@ -1,6 +1,7 @@
 import { LoggerService } from '@nestjs/common';
 import * as winston from 'winston';
 import { LogstashTransport } from 'winston-logstash-transport';
+import * as net from 'net';
 
 class WinstonLogger implements LoggerService {
     private logger: winston.Logger;
@@ -27,12 +28,41 @@ class WinstonLogger implements LoggerService {
         ];
 
         if (logstashHost && logstashPort) {
+            // quick TCP check to help diagnose connectivity
             try {
+                const socket = new net.Socket();
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                let connected = false;
+                socket.setTimeout(2000);
+                socket.once('connect', () => {
+                    connected = true;
+                    console.log(
+                        `Logstash reachable at ${logstashHost}:${logstashPort}`,
+                    );
+                    socket.destroy();
+                });
+                socket.once('timeout', () => {
+                    console.error(
+                        `Logstash connection timed out to ${logstashHost}:${logstashPort}`,
+                    );
+                    socket.destroy();
+                });
+                socket.once('error', (e: any) => {
+                    console.error(
+                        `Logstash connection error to ${logstashHost}:${logstashPort}:`,
+                        e && e.message ? e.message : e,
+                    );
+                });
+                socket.connect(logstashPort, logstashHost);
+
                 transports.push(
                     new LogstashTransport({
                         host: logstashHost,
                         port: logstashPort,
                     }) as any,
+                );
+                console.log(
+                    `Winston: Logstash transport created for ${logstashHost}:${logstashPort}`,
                 );
             } catch (err) {
                 console.error(
