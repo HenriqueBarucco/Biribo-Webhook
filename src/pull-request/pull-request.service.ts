@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { EasyWhatsAppService } from 'src/easy-whatsapp/easy-whatsapp.service';
 import { RepositoryService } from 'src/repository/repository.service';
+import logger from 'src/logger/winston-logger';
 
 @Injectable()
 export class PullRequestService {
@@ -13,7 +14,7 @@ export class PullRequestService {
         const repository = await this.repositoryService.getByProject(project);
 
         if (repository === null) {
-            console.log(`Repository ${project} not found.`);
+            logger.warn(`Repository ${project} not found.`);
             return;
         }
 

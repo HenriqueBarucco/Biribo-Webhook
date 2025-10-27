@@ -1,5 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { EasyWhatsApp } from 'easy-whatsapp-lib';
+import logger from 'src/logger/winston-logger';
 
 @Injectable()
 export class EasyWhatsAppService implements OnModuleInit {
@@ -13,7 +14,7 @@ export class EasyWhatsAppService implements OnModuleInit {
 
     async sendMessage(phone: string, message: string) {
         if (phone && message) {
-            console.log(`Sending message to ${phone}: ${message}`);
+            logger.log(`Sending message to ${phone}: ${message}`);
             this.connection.sendMessage(phone, message);
         }
     }

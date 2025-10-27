@@ -71,3 +71,19 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Logstash logging
+
+This app can forward logs to a Logstash instance using Winston. Configure the following environment variables:
+
+- `LOGSTASH_HOST` — host where Logstash is listening (required to enable forwarding)
+- `LOGSTASH_PORT` — port where Logstash is listening (required to enable forwarding)
+- `APP_ENV` or `NODE_ENV` — environment name included in logs (optional; defaults to `development`)
+- `LOG_LEVEL` — log level (optional; defaults to `debug` in non-production, `info` in production)
+
+If `LOGSTASH_HOST` and `LOGSTASH_PORT` are not set, logs still go to the console. After changing dependencies, install with your package manager (this project uses pnpm):
+
+```bash
+pnpm install
+pnpm run start:dev
+```
