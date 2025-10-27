@@ -1,10 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import logger from './logger/winston-logger';
+import { createAppLogger } from './logger/logger';
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule, { logger: false });
-    app.useLogger(logger as any);
+    const app = await NestFactory.create(AppModule, {
+        logger: createAppLogger(),
+    });
     await app.listen(3000);
 }
 
