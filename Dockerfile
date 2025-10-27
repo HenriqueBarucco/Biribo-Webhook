@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY package*.json ./
 
+RUN npm install @opentelemetry/auto-instrumentations-node
+
 RUN npm install
 
 COPY . .
