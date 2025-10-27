@@ -6,8 +6,7 @@ class WinstonLogger implements LoggerService {
     private logger: winston.Logger;
 
     constructor() {
-        const env =
-            process.env.APP_ENV || process.env.NODE_ENV || 'development';
+        const env = process.env.ENV || 'development';
         const logstashHost = process.env.LOGSTASH_HOST;
         const logstashPort = process.env.LOGSTASH_PORT
             ? parseInt(process.env.LOGSTASH_PORT, 10)
